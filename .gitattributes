@@ -1,0 +1,37 @@
+# 统一换行符，避免 Windows 提交后把整个仓库的 CRLF/LF 搅得满屏 diff。
+# 这些文件按 LF 存进仓库，检出时由 git 按平台决定（eol=lf 的强制 LF）。
+* text=auto
+
+*.py    text eol=lf
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
+*.css   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.md    text eol=lf
+*.toml  text eol=lf
+*.txt   text eol=lf
+*.html  text eol=lf
+
+# PowerShell 脚本保持 CRLF：Windows PowerShell 5.1 对 LF 结尾的 .ps1 处理不稳
+*.ps1   text eol=crlf
+
+# 二进制：不要做换行符转换，也不要在 diff 里显示内容
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.db    binary
+*.sqlite3 binary
+
+# 让 GitHub 语言统计更准：识别为文档而不是代码
+docs/*      linguist-documentation
+*.md        linguist-documentation
+frontend/package-lock.json  linguist-generated

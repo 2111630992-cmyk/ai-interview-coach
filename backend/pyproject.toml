@@ -1,0 +1,28 @@
+[project]
+name = "autumn-interview-coach-backend"
+version = "0.1.0"
+description = "秋招 AI 面试陪练平台 —— 后端 (FastAPI + SQLModel)"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["app/tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["ignore::DeprecationWarning"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = [".venv", "dev.db"]
+
+[tool.ruff.lint]
+# 只启用能抓住真实问题的规则集；纯风格偏好不纳入
+select = ["E", "F", "W", "I", "UP", "RUF"]
+ignore = [
+    "E501",     # 行宽由 formatter 控制；中文注释按字符计宽会误报
+    "RUF001",   # 本代码库全中文注释与文案，全角标点是正确写法，不是"歧义字符"
+    "RUF002",
+    "RUF003",
+    "RUF022",   # __all__ 按「API DTO / LLM schema」语义分组，不按字母排序
+]

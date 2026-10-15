@@ -1,0 +1,41 @@
+# 版本下限 = 本仓库实际验证通过的版本组合（Python 3.14 + Windows）。
+# 使用 >= 而非 == 是为了让 Python 3.11/3.12/3.13 也能解析到各自可用的 wheel。
+
+# --- Web 框架 ---
+fastapi>=0.115
+uvicorn[standard]>=0.34
+sse-starlette>=2.2
+python-multipart>=0.0.20
+
+# --- 数据层 ---
+sqlmodel>=0.0.22
+# 显式声明 asyncio extra：它会带上 greenlet，缺了会直接 ImportError
+sqlalchemy[asyncio]>=2.0
+aiosqlite>=0.20
+pydantic>=2.10
+pydantic-settings>=2.7
+
+# --- 认证 ---
+PyJWT>=2.10
+bcrypt>=4.2
+email-validator>=2.2
+
+# --- LLM（OpenAI 兼容协议）---
+openai>=1.59
+httpx>=0.28
+
+# --- 文档解析 ---
+pypdf>=5.1
+python-docx>=1.1
+# 可选：更精确的 PDF 版面还原，缺失时代码会自动回退到 pypdf
+# pdfplumber>=0.11
+
+# --- 测试与检查 ---
+# README 里让你跑 `ruff check app scripts`，所以 ruff 必须在这里，
+# 否则"照文档做"会在这一步失败。
+pytest>=8.3
+pytest-asyncio>=0.25
+ruff>=0.8
+
+# --- 生产环境（PostgreSQL）---
+# asyncpg>=0.30

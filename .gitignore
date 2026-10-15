@@ -1,0 +1,38 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Node ----
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# ---- Env & secrets ----
+.env
+.env.local
+*.env
+!.env.example
+
+# ---- DB & uploads ----
+*.db
+*.sqlite3
+backend/data/
+backend/uploads/
+backend/tmp/
+
+# ---- 本地启动日志 ----
+logs/
+
+# ---- OS / editors ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

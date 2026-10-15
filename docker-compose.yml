@@ -1,0 +1,61 @@
+# 秋招 AI 面试陪练平台 —— 一键启动
+#
+#   cp .env.example .env      # 可选：填入 LLM_API_KEY；不填则自动使用 Mock 面试官
+#   docker compose up --build
+#
+# 前端 http://localhost:8080   后端 http://localhost:8000/docs
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: ai-interview-backend
+    environment:
+      APP_ENV: ${APP_ENV:-development}
+      SECRET_KEY: ${SECRET_KEY:-change-me-to-a-long-random-string}
+      # ---- LLM：留空则自动降级为内置 Mock 面试官 ----
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.deepseek.com/v1}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-chat}
+      LLM_MODEL_EVAL: ${LLM_MODEL_EVAL:-}
+      # SQLite 放在数据卷里；改用 PostgreSQL 时替换成：
+      # postgresql+asyncpg://postgres:postgres@db:5432/interview（并解开 requirements 里的 asyncpg）
+      DATABASE_URL: sqlite+aiosqlite:////data/dev.db
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+      UPLOAD_MAX_MB: ${UPLOAD_MAX_MB:-5}
+    volumes:
+      - backend-data:/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # 相对路径 → 同源 → 无 CORS；由 nginx 反代到 backend
+        VITE_API_BASE_URL: /api/v1
+    container_name: ai-interview-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # 需要 PostgreSQL 时解开以下配置，并同步修改 backend 的 DATABASE_URL
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: interview
+  #   volumes:
+  #     - pg-data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+
+volumes:
+  backend-data:
+  # pg-data:
