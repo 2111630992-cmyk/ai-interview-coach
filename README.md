@@ -1,5 +1,10 @@
 # 秋招 AI 面试陪练平台
 
+[![CI](https://github.com/2111630992-cmyk/ai-interview-coach/actions/workflows/ci.yml/badge.svg)](https://github.com/2111630992-cmyk/ai-interview-coach/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](backend/requirements.txt)
+[![React](https://img.shields.io/badge/react-18-61dafb.svg)](frontend/package.json)
+
 面向大学生**秋季校园招聘**的 AI 模拟面试 Web 应用。
 
 **打开摄像头，面对一场会追问的视频面试。** 六位不同风格的面试官轮流提问，
