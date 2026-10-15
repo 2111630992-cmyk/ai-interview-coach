@@ -2,7 +2,7 @@
 name = "autumn-interview-coach-backend"
 version = "0.1.0"
 description = "秋招 AI 面试陪练平台 —— 后端 (FastAPI + SQLModel)"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 testpaths = ["app/tests"]
